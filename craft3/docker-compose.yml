@@ -1,0 +1,38 @@
+version: '3'
+
+
+services:
+    nginx3:
+        image: eriweb/nginx-craft3
+        ports:
+            - "80:80"
+        volumes:
+            - ./source:/app
+        networks:
+            - craft3
+        depends_on:
+            - db3
+            - fpm3
+
+    fpm3:
+        image: eriweb/php7-fpm
+        volumes:
+            - ./source:/app
+        networks:
+            craft3:
+                aliases:
+                    - php
+        depends_on:
+            - db3
+    db3:
+        image: mysql:5.5
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+            MYSQL_DATABASE: 'craft'
+        networks:
+            craft3:
+                aliases:
+                    - db
+
+networks:
+    craft3:
