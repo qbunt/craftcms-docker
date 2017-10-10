@@ -4,7 +4,7 @@
 * the `unzip` and `curl` commands if you want to use the setup script
 
 
-# Automatic Craft download and coniguration
+# Automatic Craft download and configuration
 This will download the latest version
 * run `./setup-craft.sh`
 
