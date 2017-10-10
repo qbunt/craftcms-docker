@@ -3,6 +3,7 @@
 mkdir source
 docker-compose run fpm3 composer create-project craftcms/craft /app -s beta
 
+shastring=$(echo -n password | shasum -a 1 | awk '{print $1}')
 
 cat << EOF > source/.env
 # The database driver that will used ('mysql' or 'pgsql')
@@ -25,4 +26,8 @@ DB_SCHEMA="public"
 
 # The prefix that should be added to generated table names (only necessary if multiple things are sharing the same database)
 DB_TABLE_PREFIX=""
+
+
+# The secure key Craft will use for hashing and encrypting data
+SECURITY_KEY="$shastring"
 EOF
